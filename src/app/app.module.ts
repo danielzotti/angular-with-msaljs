@@ -8,6 +8,7 @@ import {AuthComponent} from './components/auth/auth.component';
 import {MsalInterceptor, MsalModule} from "@azure/msal-angular";
 import {PrivateComponent} from './components/private-component/private.component';
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -19,12 +20,7 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MsalModule.forRoot({
-      auth: {
-        clientId: "{Application (client) ID}",
-        authority: "https://login.microsoftonline.com/{Directory (tenant) ID}",
-      }
-    })
+    MsalModule.forRoot(environment.azureAuthConfig)
   ],
   providers: [
     {

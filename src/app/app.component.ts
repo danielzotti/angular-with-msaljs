@@ -16,11 +16,10 @@ import {BroadcastService, MsalService} from "@azure/msal-angular";
         <a [routerLink]="['test']">Test page</a>
       </li>
       <li>
-        <a [routerLink]="['private']">Private page (need authentication)</a>
+        <a [routerLink]="['private']">Private page (login if you want to see it!)</a>
       </li>
       <li>
-        <button (click)="login()">Login</button>
-        <button (click)="logout()">Logout</button>
+        <button (click)="login()" *ngIf="isAuth">Login</button><button (click)="logout()" *ngIf="!isAuth">Logout</button>
       </li>
     </ul>
     <router-outlet></router-outlet>
@@ -30,8 +29,8 @@ import {BroadcastService, MsalService} from "@azure/msal-angular";
 export class AppComponent implements OnInit {
 
   title = 'angular-with-msaljs';
-  loggedIn = false;
-  name: string = null;
+  isAuth = false;
+  name: string;
 
   constructor(private broadcastService: BroadcastService, private authService: MsalService) {
   }
@@ -77,7 +76,7 @@ export class AppComponent implements OnInit {
   }
 
   checkoutAccount() {
-    this.loggedIn = !!this.authService.getAccount();
+    this.isAuth = !!this.authService.getAccount();
   }
 
   login() {
