@@ -8,6 +8,7 @@ export const environment = {
     auth: {
       clientId: "{Application (client) ID}",
       authority: "https://login.microsoftonline.com/{Directory (tenant) ID}",
+      redirectUri: "http://localhost:4200"
     }
   }
 };

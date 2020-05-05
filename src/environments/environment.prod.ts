@@ -1,9 +1,10 @@
 export const environment = {
-  production: true,
+  production: false,
   azureAuthConfig: {
     auth: {
       clientId: "{Application (client) ID}",
       authority: "https://login.microsoftonline.com/{Directory (tenant) ID}",
+      redirectUri: "https://example.com"
     }
   }
 };

@@ -19,7 +19,7 @@ import {BroadcastService, MsalService} from "@azure/msal-angular";
         <a [routerLink]="['private']">Private page (login if you want to see it!)</a>
       </li>
       <li>
-        <button (click)="login()" *ngIf="isAuth">Login</button><button (click)="logout()" *ngIf="!isAuth">Logout</button>
+        <button (click)="login()" *ngIf="!isAuth">Login</button><button (click)="logout()" *ngIf="isAuth">Logout</button>
       </li>
     </ul>
     <router-outlet></router-outlet>
