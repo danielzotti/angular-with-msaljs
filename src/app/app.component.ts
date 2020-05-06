@@ -39,8 +39,6 @@ export class AppComponent implements OnInit {
 
     this.checkoutAccount();
 
-    this.name = this.authService.getAccount()?.name;
-
     this.broadcastService.subscribe("msal:loginFailure", payload => {
       console.log('loginFailure', payload)
     });
@@ -77,6 +75,7 @@ export class AppComponent implements OnInit {
 
   checkoutAccount() {
     this.isAuth = !!this.authService.getAccount();
+    this.name = this.authService.getAccount()?.name;
   }
 
   login() {
