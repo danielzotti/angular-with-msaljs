@@ -8,6 +8,7 @@ import {BroadcastService, MsalService} from "@azure/msal-angular";
       Welcome to {{title}}!
     </h1>
     <h2 *ngIf="name">User: {{name}}</h2>
+    <pre *ngIf="name">{{authService.getAccount() | json}}</pre>
     <ul>
       <li>
         <a [routerLink]="['']">Home page</a>
@@ -19,7 +20,8 @@ import {BroadcastService, MsalService} from "@azure/msal-angular";
         <a [routerLink]="['private']">Private page (login if you want to see it!)</a>
       </li>
       <li>
-        <button (click)="login()" *ngIf="!isAuth">Login</button><button (click)="logout()" *ngIf="isAuth">Logout</button>
+        <button (click)="login()" *ngIf="!isAuth">Login</button>
+        <button (click)="logout()" *ngIf="isAuth">Logout</button>
       </li>
     </ul>
     <router-outlet></router-outlet>
@@ -32,7 +34,7 @@ export class AppComponent implements OnInit {
   isAuth = false;
   name: string;
 
-  constructor(private broadcastService: BroadcastService, private authService: MsalService) {
+  constructor(private broadcastService: BroadcastService, public authService: MsalService) {
   }
 
   ngOnInit(): void {
@@ -41,26 +43,31 @@ export class AppComponent implements OnInit {
 
     this.broadcastService.subscribe("msal:loginFailure", payload => {
       console.log('loginFailure', payload)
+      this.checkoutAccount();
     });
 
     this.broadcastService.subscribe("msal:loginSuccess", payload => {
       console.log('loginSuccess', payload)
-      this.name = payload?.account?.name;
+      this.checkoutAccount();
     });
 
     this.broadcastService.subscribe("msal:acquireTokenSuccess", payload => {
       console.log('acquireTokenSuccess', payload)
+      this.checkoutAccount();
     });
 
     this.broadcastService.subscribe("msal:acquireTokenFailure", payload => {
       console.log('acquireTokenFailure', payload)
+      this.checkoutAccount();
     });
     this.broadcastService.subscribe("msal:ssoSuccess", payload => {
       console.log('ssoSuccess', payload)
+      this.checkoutAccount();
     });
 
     this.broadcastService.subscribe("msal:ssoFailure", payload => {
       console.log('ssoFailure', payload)
+      this.checkoutAccount();
     });
 
     this.authService.handleRedirectCallback((authError, response) => {
@@ -68,8 +75,8 @@ export class AppComponent implements OnInit {
         console.error('Redirect Error: ', authError.errorMessage);
         return;
       }
-
       console.log('Redirect Success: ', response);
+      this.checkoutAccount();
     });
   }
 
@@ -79,8 +86,8 @@ export class AppComponent implements OnInit {
   }
 
   login() {
-    this.authService.loginRedirect()
-    // this.authService.loginPopup()
+    // this.authService.loginRedirect()
+    this.authService.loginPopup()
   }
 
   logout() {

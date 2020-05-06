@@ -15,6 +15,11 @@ const routes: Routes = [
     path: 'private',
     component: PrivateComponent,
     canActivate: [MsalGuard]
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
   }
 ];
 

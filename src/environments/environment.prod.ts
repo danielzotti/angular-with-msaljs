@@ -4,7 +4,8 @@ export const environment = {
     auth: {
       clientId: "{Application (client) ID}",
       authority: "https://login.microsoftonline.com/{Directory (tenant) ID}",
-      redirectUri: "https://example.com"
+      redirectUri: "https://example.com",
+      postLogoutRedirectUri: "https://example.com"
     }
   }
 };
