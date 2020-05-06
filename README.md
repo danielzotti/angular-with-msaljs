@@ -6,6 +6,8 @@ This project integrates Angular with MSAL.js (Microsoft Authentication Library f
     -  https://nodejs.org/it/download/
 - Angular cli
     - `npm install -g @angular/cli`
+- Register an application in Azure AD
+    - https://docs.microsoft.com/en-gb/azure/active-directory/develop/quickstart-register-app
 
 ## The process I've followed
 - Create Angular project (with Router module) from cli 
